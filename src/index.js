@@ -9,8 +9,17 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.status(200).send('Express');
+const { User } = require('../db/models');
+
+app.get('/', async (req, res) => {
+  try {
+    users = await User.findAll();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({ error });
+  }
 });
 
 app.listen(PORT, (err) => {
