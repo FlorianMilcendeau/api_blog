@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  user.init(
+  User.init(
     {
       name: {
         type: DataTypes.STRING(50),
@@ -21,13 +21,15 @@ module.exports = (sequelize, DataTypes) => {
       password: { type: DataTypes.STRING(255), allowNull: false },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         defaultValue: new Date(),
       },
     },
     {
       sequelize,
+      tableName: 'user',
       modelName: 'User',
+      timestamps: false,
     },
   );
   return User;
