@@ -3,24 +3,18 @@ const express = require('express');
 const PORT = process.env.PORT || 8080;
 const app = express();
 const logger = require('morgan');
+const cors = require('cors');
+const corsOptions = require('../config/cors');
+
+const root = require('../routers');
 
 /** Middleware */
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const { User } = require('../db/models');
-
-app.get('/', async (req, res) => {
-  try {
-    users = await User.findAll();
-    res.status(200).json(users);
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({ error });
-  }
-});
+app.use('/', root);
 
 app.listen(PORT, (err) => {
   if (err) {
