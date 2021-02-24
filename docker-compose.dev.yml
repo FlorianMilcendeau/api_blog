@@ -17,6 +17,7 @@ services:
       - 3306:3306
   api-dev:
     container_name: api-dev
+    command: bash -c 'sequelize db:migrate && sequelize-cli db:seed:all && npm run start:dev'
     depends_on:
       - db-dev
     build:
@@ -25,7 +26,6 @@ services:
     volumes:
       - '.:/app'
       - '/app/node_modules'
-    command: bash -c 'sequelize db:migrate && sequelize-cli db:seed:all && npm run start:dev'
     env_file: ./.env
     ports:
       - 8080:8080
