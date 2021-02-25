@@ -106,7 +106,6 @@ router.post('/signUp', verifyBodySingUp, async (req, res) => {
       },
     );
 
-    console.log(useCreated);
     // If user is not create.
     if (!useCreated) {
       return res.status(400).json({
