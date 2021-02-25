@@ -8,7 +8,9 @@
     "start": "node -r dotenv/config dist/index.js",
     "start:dev": "nodemon -r dotenv/config ./src/index.js",
     "build": "rm -rf dist && parcel build ./src/index.js --target node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged",
+    "lint": "eslint --ext .js --fix"
   },
   "keywords": [],
   "author": "",
@@ -28,9 +30,22 @@
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^5.1.1",
+    "lint-staged": "^10.5.4",
     "nodemon": "^2.0.7",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1",
     "sequelize-cli": "^6.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run lint",
+      "prettier --write"
+    ]
   }
 }
